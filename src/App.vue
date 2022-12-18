@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto'
 
 const weights = ref([])
 
-let getweights = localStorage.getItem("weights")
+let getweights = null
 
 const weightChartEl = ref(null)
 
@@ -23,9 +23,9 @@ const addWeight = () => {
 	})
     localStorage.setItem("weights", JSON.stringify(weights.value))
 
-    // let getweights = localStorage.getItem("weights")
+     getweights = JSON.parse(localStorage.getItem("weights"))
 
-    console.log( getweights );
+    console.log( getweights.length );
   weightInput.value = null
   // console.log(weightInput.value);
 }
@@ -99,7 +99,7 @@ watch(weights, (newWeights) => {
 				value="Add weight" />
 		</form>
 
-		<div v-if="weights && weights.length > 0">
+		<div v-if="getweights !== null ">
 
 			<h2>
 				Last 7 days
@@ -112,7 +112,7 @@ watch(weights, (newWeights) => {
 			<div class="weight-history">
 				<h2>Weight History</h2>
 				<ul>
-					<li v-for="weight in weights">
+					<li v-for="weight in getweights">
 						<span>{{ weight.weight }}kg</span>
 						<small>
 							{{ new Date(weight.date).toLocaleDateString() }}
