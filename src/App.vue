@@ -17,8 +17,10 @@ const currentWeight = computed(() => {
 const addWeight = () => {
 	weights.value.push({
 		weight: weightInput.value,
-		date: new Date().getTime()
+		date: new Date()
 	})
+	
+	console.log(weights.value)
 }
 
 watch(weights, (newWeights) => {
