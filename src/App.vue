@@ -72,6 +72,7 @@ watch(weights, (newWeights) => {
 
 <template>
 	<main>
+		<h2>hrybdhkbchds</h2>
 
 		<h1>Weight Tracker</h1>
 
