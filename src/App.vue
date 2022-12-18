@@ -4,11 +4,13 @@ import Chart from 'chart.js/auto'
 
 const weights = ref([])
 
+let getweights = localStorage.getItem("weights")
+
 const weightChartEl = ref(null)
 
 const weightChart = shallowRef(null)
 
-const weightInput = ref()
+const weightInput = ref(null)
 
 const currentWeight = computed(() => {
 	return weights.value.sort((a, b) => b.date - a.date)[0] || { weight: 0 }
@@ -19,9 +21,13 @@ const addWeight = () => {
 		weight: weightInput.value,
 		date: new Date()
 	})
-	
-	console.log(weights.value)
-	weightInput.value = null
+    localStorage.setItem("weights", JSON.stringify(weights.value))
+
+    // let getweights = localStorage.getItem("weights")
+
+    console.log( getweights );
+  weightInput.value = null
+  // console.log(weightInput.value);
 }
 
 watch(weights, (newWeights) => {
@@ -41,6 +47,7 @@ watch(weights, (newWeights) => {
 		weightChart.value.update()
 		return
 	}
+  
 
 	nextTick(() => {
 		weightChart.value = new Chart(weightChartEl.value.getContext('2d'), {
